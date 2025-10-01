@@ -3,6 +3,9 @@ package ru.diasoft.service;
 import ru.diasoft.domain.Person;
 import ru.diasoft.domain.Student;
 import ru.diasoft.domain.InvalidPhoneNumberException;
+import ru.diasoft.domain.Subject;
+import ru.diasoft.domain.Faculty;
+import ru.diasoft.repository.FacultyRepository;
 
 public class PersonDemo {
     private final Person person;
@@ -46,6 +49,21 @@ public class PersonDemo {
         }
 
         printer.printInfo(student);
+
+        student.addSubjects(java.util.List.of(
+            new Subject("Programming", 5),
+            new Subject("Algorithms", 4),
+            new Subject("Databases", 5)
+        ));
+        System.out.println("-- Provided student with subjects --");
+        printer.printInfo(student);
+
+        FacultyRepository repository = new FacultyRepository();
+        Faculty faculty = repository.getFaculty();
+        System.out.println("-- Faculty: " + faculty.getName() + " --");
+        for (Student st : faculty.getStudents()) {
+            printer.printInfo(st);
+        }
     }
 }
 
