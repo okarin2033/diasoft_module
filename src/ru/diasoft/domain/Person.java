@@ -12,11 +12,11 @@ public class Person {
         this.age = age;
     }
 
-    public Person(String firstName, String secondName, int age, String phone) {
+    public Person(String firstName, String secondName, int age, String phone) throws InvalidPhoneNumberException {
         this.firstName = firstName;
         this.secondName = secondName;
         this.age = age;
-        this.phone = phone;
+        setPhone(phone);
     }
 
     public String getFirstName() {
@@ -39,7 +39,18 @@ public class Person {
         this.age = age;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(String phone) throws InvalidPhoneNumberException {
+        if (phone == null || phone.isEmpty()) {
+            this.phone = null;
+            return;
+        }
+        String digitsOnly = phone.replaceAll("[^0-9]", "");
+        if (!digitsOnly.matches("[0-9]+")) {
+            throw new InvalidPhoneNumberException("Phone contains invalid characters");
+        }
+        if (digitsOnly.length() < 10 || digitsOnly.length() > 15) {
+            throw new InvalidPhoneNumberException("Phone has invalid length: " + digitsOnly.length());
+        }
         this.phone = phone;
     }
 }

@@ -10,7 +10,7 @@ public class Student extends Person {
         this.course = course;
     }
 
-    public Student(String firstName, String secondName, int age, String phone, String group, int course) {
+    public Student(String firstName, String secondName, int age, String phone, String group, int course) throws InvalidPhoneNumberException {
         super(firstName, secondName, age, phone);
         this.group = group;
         this.course = course;
