@@ -6,6 +6,9 @@ import ru.diasoft.domain.InvalidPhoneNumberException;
 import ru.diasoft.domain.Subject;
 import ru.diasoft.domain.Faculty;
 import ru.diasoft.repository.FacultyRepository;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class PersonDemo {
     private final Person person;
@@ -64,6 +67,36 @@ public class PersonDemo {
         for (Student st : faculty.getStudents()) {
             printer.printInfo(st);
         }
+
+        System.out.println("-- Faculty students sorted (course desc, group asc, last name asc) --");
+        List<Student> sortedStudents = new ArrayList<>(faculty.getStudents());
+        sortedStudents.sort(
+            Comparator.comparingInt(Student::getCourse)
+                .reversed()
+                .thenComparing(Student::getGroup, String.CASE_INSENSITIVE_ORDER)
+                .thenComparing(Student::getSecondName, String.CASE_INSENSITIVE_ORDER)
+                .thenComparing(Student::getFirstName, String.CASE_INSENSITIVE_ORDER)
+        );
+        for (Student st : sortedStudents) {
+            printer.printInfo(st);
+        }
+
+        System.out.println("-- Provided student subjects sorted (grade desc, name asc) --");
+        List<Subject> subjectsSorted = new ArrayList<>(student.getSubjects());
+        subjectsSorted.sort(
+            Comparator.comparingInt(Subject::getGrade)
+                .reversed()
+                .thenComparing(Subject::getName, String.CASE_INSENSITIVE_ORDER)
+        );
+        StringBuilder sb = new StringBuilder("subjects=[");
+        boolean firstSubj = true;
+        for (Subject subj : subjectsSorted) {
+            if (!firstSubj) sb.append(", ");
+            sb.append(subj.toString());
+            firstSubj = false;
+        }
+        sb.append("]");
+        System.out.println(sb.toString());
     }
 }
 
