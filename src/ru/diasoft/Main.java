@@ -10,6 +10,7 @@ public class Main {
         Student student = new Student("Petr", "Petrov", 19, "IT-101", 1);
         PersonDemo demo = new PersonDemo(person, student);
         demo.demo();
+        demo.demonstrateFacultyService();
     }
 }
 

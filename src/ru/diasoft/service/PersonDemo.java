@@ -96,7 +96,68 @@ public class PersonDemo {
             firstSubj = false;
         }
         sb.append("]");
-        System.out.println(sb.toString());
+        System.out.println(sb);
+    }
+
+    public void demonstrateFacultyService() {
+        System.out.println("\n-- Faculty Service Demo --");
+        
+        FacultyRepository repository = new FacultyRepository();
+        Faculty faculty = repository.getFaculty();
+        FacultyService facultyService = new FacultyServiceImpl();
+        
+        System.out.println("Faculty: " + faculty.getName());
+        System.out.println("Total students: " + faculty.getStudents().size());
+        System.out.println();
+        
+        System.out.println("Search by name 'Ivan':");
+        String searchName = "Ivan";
+        List<Student> foundStudents = facultyService.findStudentsByFirstName(faculty, searchName);
+        if (foundStudents.isEmpty()) {
+            System.out.println("  No students found");
+        } else {
+            foundStudents.forEach(st -> 
+                System.out.println("  " + st.getFirstName() + " " + st.getSecondName() + 
+                                   ", group=" + st.getGroup() + ", course=" + st.getCourse())
+            );
+        }
+        System.out.println();
+        
+        searchName = "Anna";
+        System.out.println("Search by name 'Anna':");
+        foundStudents = facultyService.findStudentsByFirstName(faculty, searchName);
+        if (foundStudents.isEmpty()) {
+            System.out.println("  No students found");
+        } else {
+            foundStudents.forEach(st -> 
+                System.out.println("  " + st.getFirstName() + " " + st.getSecondName() + 
+                                   ", group=" + st.getGroup() + ", course=" + st.getCourse())
+            );
+        }
+        System.out.println();
+        
+        System.out.println("Students sorted by last name:");
+        List<Student> sortedStudents = facultyService.sortStudentsByLastName(faculty);
+        sortedStudents.forEach(st -> 
+            System.out.println("  " + st.getSecondName() + " " + st.getFirstName() + 
+                               ", group=" + st.getGroup() + ", course=" + st.getCourse())
+        );
+        System.out.println();
+        
+        System.out.println("Excellent students (all grades 5):");
+        List<Student> excellentStudents = facultyService.findExcellentStudents(faculty);
+        if (excellentStudents.isEmpty()) {
+            System.out.println("  No excellent students found");
+        } else {
+            System.out.println("  Found: " + excellentStudents.size());
+            excellentStudents.forEach(st -> {
+                System.out.println("  " + st.getFirstName() + " " + st.getSecondName() + 
+                                   ", group=" + st.getGroup() + ", course=" + st.getCourse());
+                System.out.print("    subjects: ");
+                st.getSubjects().forEach(subj -> System.out.print(subj + "; "));
+                System.out.println();
+            });
+        }
     }
 }
 
