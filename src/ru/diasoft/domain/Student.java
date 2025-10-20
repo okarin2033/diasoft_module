@@ -1,9 +1,14 @@
 package ru.diasoft.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
+@Getter
+@Setter
 public class Student extends Person {
     private String group;
     private int course;
@@ -18,22 +23,6 @@ public class Student extends Person {
     public Student(String firstName, String secondName, int age, String phone, String group, int course) throws InvalidPhoneNumberException {
         super(firstName, secondName, age, phone);
         this.group = group;
-        this.course = course;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    public int getCourse() {
-        return course;
-    }
-
-    public void setCourse(int course) {
         this.course = course;
     }
 

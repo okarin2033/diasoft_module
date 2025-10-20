@@ -1,8 +1,13 @@
 package ru.diasoft.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public class Person {
     private final String firstName;
     private final String secondName;
+    @Setter
     private int age;
     private String phone;
 
@@ -17,26 +22,6 @@ public class Person {
         this.secondName = secondName;
         this.age = age;
         setPhone(phone);
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public void setPhone(String phone) throws InvalidPhoneNumberException {
